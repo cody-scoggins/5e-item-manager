@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../services/api.service';
-import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-home',
@@ -9,12 +7,9 @@ import { Observable } from 'rxjs/Observable';
 })
 export class HomeComponent implements OnInit {
 
-  apiList: any;
-
-  constructor(private api: ApiService) { }
+  constructor() { }
 
   ngOnInit() {
-
   }
 
 }
