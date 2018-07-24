@@ -1,3 +1,108 @@
-<p>
-  home works!
-</p>
+<mat-drawer-container class="example-container">
+
+  <!-- Sidenav Contents -->
+  <mat-drawer #drawer class="example-sidenav" [(opened)]="opened" mode="side">
+    <div class="search">
+      <form (ngSubmit)="onSubmit()" id="item-name">
+        <mat-form-field class="example-full-width">
+          <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl">
+        </mat-form-field>
+      </form>
+    </div>
+    <div class="list">
+      <mat-selection-list role="list">
+        <mat-list-item (click)="clickList(option)" role="listitem" *ngFor="let option of filteredOptions | async">
+          {{option}}
+        </mat-list-item>
+      </mat-selection-list>
+    </div>
+  </mat-drawer>
+
+  <!-- Page Contents -->
+  <div class="example-sidenav-content">
+    <div *ngIf="show" style="margin-left:10px">
+
+      <!-- Display Weapon -->
+      <div *ngIf="isWeapon(selectedItem)" class="equipment-card">
+        <div class="ui-g">
+          <div class="ui-g-10">
+            <h2>{{selectedItem.name}}</h2>
+          </div>
+          <div class="ui-g-2">
+            <p><em>Cost</em>: {{selectedItem.cost.quantity}}{{selectedItem.cost.unit}}</p>
+          </div>
+          <div class="ui-g-6">
+            <p><strong>Damage</strong>: {{selectedItem.damage.dice_count}}d{{selectedItem.damage.dice_value}} {{selectedItem.damage.damage_type.name}}</p>
+            <p *ngIf="selectedItem.two_hand_damage">
+              <strong>Damage (2h)</strong>:
+              {{selectedItem.two_hand_damage.dice_count}}d{{selectedItem.two_hand_damage.dice_value}}
+              {{selectedItem.two_hand_damage.damage_type.name}}
+            </p>
+            <p><strong>Weight</strong>: {{selectedItem.weight}} lb.</p>
+          </div>
+          <div class="ui-g-6">
+            <!-- <p><strong>Weapon Category</strong>: {{selectedItem.weapon_category}}</p>
+            <p><strong>Category Range</strong>: {{selectedItem.category_range}}</p> -->
+            <p><strong>Range</strong>: {{selectedItem.weapon_range}} ({{selectedItem.range.normal}}/{{selectedItem.range.long}}ft)</p>
+            <p *ngIf="selectedItem.throw_range">
+              <strong>Throw Range</strong>: {{selectedItem.throw_range.normal}}/{{selectedItem.throw_range.long}}
+            </p>
+          </div>
+        </div>
+        <p><strong>Properties</strong>: </p>
+        <ul>
+          <li *ngFor="let property of selectedItem.properties">
+            <strong>{{property.name}}</strong> - {{property.desc}}
+          </li>
+        </ul>
+      </div>
+
+      <!-- Display Armor -->
+      <div *ngIf="isArmor(selectedItem)" class="equipment-card">
+        <div class="ui-g">
+          <div class="ui-g-10">
+            <h2>{{selectedItem.name}}</h2>
+          </div>
+          <div class="ui-g-2">
+            <p><em>Cost</em>: {{selectedItem.cost.quantity}}{{selectedItem.cost.unit}}</p>
+          </div>
+          <div class="ui-g-6">
+            <p *ngIf="!selectedItem.armor_class.dex_bonus">
+              <strong>Armor Class</strong>: {{selectedItem.armor_class.base}}
+            </p>
+            <p *ngIf="selectedItem.armor_class.dex_bonus && selectedItem.armor_class.max_bonus">
+              <strong>Armor Class</strong>: {{selectedItem.armor_class.base}} + Dex Modifier (max {{selectedItem.armor_class.max_bonus}})
+            </p>
+            <p *ngIf="selectedItem.armor_class.dex_bonus && (selectedItem.armor_class.max_bonus != null)">
+              adfasdfasdfasdfa
+              <strong>Armor Class</strong>: {{selectedItem.armor_class.base}} + Dex Modifier
+            </p>
+            <p><strong>Strength Requirement</strong>: {{selectedItem.str_minimum}}</p>
+            <p><strong>Stealth Disadvantage</strong>: {{selectedItem}}</p>
+            <p><strong>Weight</strong>: {{selectedItem.weight}} lb.</p>
+          </div>
+          <div class="ui-g-6">
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Display Adventuring Gear -->
+      <div *ngIf="isGear(selectedItem)">
+        <p>Gear for Adventuring!</p>
+      </div>
+
+      <!-- Display Tools -->
+      <div *ngIf="isTool(selectedItem)">
+        <p>Tool!</p>
+      </div>
+
+      <!-- Display Mount -->
+      <div *ngIf="isMount(selectedItem)">
+        <p>Mount!</p>
+      </div>
+
+    </div>
+
+  </div>
+</mat-drawer-container>

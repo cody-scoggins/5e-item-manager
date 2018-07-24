@@ -1,0 +1,24 @@
+.center{
+  margin-top: auto;
+  margin-bottom: auto;
+  display: block;
+}
+
+.mybutton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.example-icon {
+  padding: 0 14px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.menu {
+  padding: 0 14px;
+  font-size:36px
+}

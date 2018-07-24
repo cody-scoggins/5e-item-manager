@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { HomeComponent } from './home/home.component';
 
 @Component({
     selector: 'app-root',
@@ -8,12 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
 
-    visibleSidebar1;
+  @ViewChild(HomeComponent)
+  private apphome: HomeComponent;
 
-    constructor() { }
+  constructor() { }
 
-    ngOnInit() {
+  ngOnInit() {
 
-    }
+  }
+
+  showSidebar() {
+    this.apphome.showSidebar();
+  }
 
 }
