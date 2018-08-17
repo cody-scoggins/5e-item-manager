@@ -13,6 +13,7 @@
       <mat-selection-list role="list">
         <mat-list-item (click)="clickList(option)" role="listitem" *ngFor="let option of filteredOptions | async">
           {{option}}
+          <mat-divider></mat-divider>
         </mat-list-item>
       </mat-selection-list>
     </div>
@@ -23,7 +24,7 @@
     <div *ngIf="show" style="margin-left:10px">
 
       <!-- Display Weapon -->
-      <div *ngIf="isWeapon(selectedItem)" class="equipment-card">
+      <div *ngIf="selectedItem.equipment_category === 'Weapon'" class="equipment-card">
         <div class="ui-g">
           <div class="ui-g-10">
             <h2>{{selectedItem.name}}</h2>
@@ -54,11 +55,14 @@
           <li *ngFor="let property of selectedItem.properties">
             <strong>{{property.name}}</strong> - {{property.desc}}
           </li>
+          <button class="delete" title="delete item"
+            (click)="delete(selectedItem)">x</button>
         </ul>
       </div>
 
+
       <!-- Display Armor -->
-      <div *ngIf="isArmor(selectedItem)" class="equipment-card">
+      <div *ngIf="selectedItem.equipment_category === 'Armor'" class="equipment-card">
         <div class="ui-g">
           <div class="ui-g-10">
             <h2>{{selectedItem.name}}</h2>
@@ -74,7 +78,6 @@
               <strong>Armor Class</strong>: {{selectedItem.armor_class.base}} + Dex Modifier (max {{selectedItem.armor_class.max_bonus}})
             </p>
             <p *ngIf="selectedItem.armor_class.dex_bonus && (selectedItem.armor_class.max_bonus != null)">
-              adfasdfasdfasdfa
               <strong>Armor Class</strong>: {{selectedItem.armor_class.base}} + Dex Modifier
             </p>
             <p><strong>Strength Requirement</strong>: {{selectedItem.str_minimum}}</p>
@@ -88,9 +91,31 @@
       </div>
 
       <!-- Display Adventuring Gear -->
-      <div *ngIf="isGear(selectedItem)">
-        <p>Gear for Adventuring!</p>
+      <div *ngIf="selectedItem.equipment_category === 'Adventuring Gear'" class="equipment-card">
+        <div class="ui-g">
+          <div class="ui-g-10">
+            <h2>{{selectedItem.name}}</h2>
+          </div>
+          <div class ="ui-g-2">
+            <p><em>Cost</em>: {{selectedItem.cost.quantity}}{{selectedItem.cost.unit}}</p>
+          </div>
+          <div class="ui-g-6">
+            <p><strong>Weight</strong>: {{selectedItem.weight}} lb.</p>
+          </div>
+          <div *ngIf="selectedItem.desc" class="ui-g-12">
+            <p><strong>Description</strong>: {{selectedItem.desc}}</p>
+          </div>
+          <div *ngIf="selectedItem.contents">
+            <ul>
+              <li *ngFor="let content of selectedItem.contents">
+                <strong>Quantity:</strong> {{content.quantity}}
+
+                {{indexURL(content.item_url)}}
+              </li>
+            </ul>
+          </div>
       </div>
+    </div>
 
       <!-- Display Tools -->
       <div *ngIf="isTool(selectedItem)">

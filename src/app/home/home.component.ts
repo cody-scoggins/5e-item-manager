@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit {
   filteredOptions: Observable<string[]>;
   show = false;
   selectedItem: any;
+  containedItem: any;
 
   constructor(private equip:EquipmentService) { }
 
@@ -57,16 +58,21 @@ export class HomeComponent implements OnInit {
     return this.nameList.filter(option => option.toLowerCase().includes(filterValue));
   }
 
-  isWeapon(item: any) {
-    if(item.equipment_category === "Weapon") return true;
+
+  delete(item: any): void {
+    this.show = false;
   }
 
-  isArmor(item: any) {
-    if(item.equipment_category === "Armor") return true;
-  }
-
-  isGear(item: any) {
-    if(item.equipment_category === "Adventuring Gear") return true;
+  indexURL(url: string){
+    var splitted = url.split("/", 6);
+    var result = Number(splitted[5]);
+    for(let item of this.data){
+      if(item.index === result){
+        this.containedItem = item;
+        return this.containedItem.name;
+      }
+    }
+    return "larry";
   }
 
   isTool(item: any) {

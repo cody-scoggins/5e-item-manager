@@ -33,3 +33,11 @@
 
 .list {
 }
+
+button.delete {
+  position: relative;
+  left: 450px;
+
+  background-color: gray !important;
+  color: white;
+}
