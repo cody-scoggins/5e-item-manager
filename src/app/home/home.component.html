@@ -96,7 +96,7 @@
           <div class="ui-g-10">
             <h2>{{selectedItem.name}}</h2>
           </div>
-          <div class ="ui-g-2">
+          <div class="ui-g-2">
             <p><em>Cost</em>: {{selectedItem.cost.quantity}}{{selectedItem.cost.unit}}</p>
           </div>
           <div class="ui-g-6">
@@ -108,9 +108,12 @@
           <div *ngIf="selectedItem.contents">
             <ul>
               <li *ngFor="let content of selectedItem.contents">
-                <strong>Quantity:</strong> {{content.quantity}}
+                <strong>Quantity</strong>: {{content.quantity}}
+<!--                <div *ngIf="indexURL(content.item_url) != null">
+                  {{containedItem.name}}
 
-                {{indexURL(content.item_url)}}
+                </div>  figure out how to -->
+                {{indexURL(content.item_url).name}}
               </li>
             </ul>
           </div>
@@ -118,13 +121,52 @@
     </div>
 
       <!-- Display Tools -->
-      <div *ngIf="isTool(selectedItem)">
-        <p>Tool!</p>
+      <div *ngIf="selectedItem.equipment_category === 'Tools'" class="equipment-card">
+        <div class="ui-g">
+          <div class="ui-g-10">
+            <h2>{{selectedItem.name}}</h2>
+          </div>
+          <div class="ui-g-2">
+            <p><em>Cost</em>: {{selectedItem.cost.quantity}}{{selectedItem.cost.unit}}</p>
+          </div>
+          <div class="ui-g-6">
+            <p><strong>Weight</strong>: {{selectedItem.weight}}</p>
+          </div>
+          <div>
+            <p class="ui-g-12"><strong>Description</strong>: {{selectedItem.desc}}</p>
+          </div>
+        </div>
       </div>
 
       <!-- Display Mount -->
-      <div *ngIf="isMount(selectedItem)">
-        <p>Mount!</p>
+      <div *ngIf="selectedItem.equipment_category === 'Mounts and Vehicles'" class ="equipment-card">
+        <div class="ui-g">
+          <div class="ui-g-10">
+            <h2>{{selectedItem.name}}</h2>
+          </div>
+          <div class="ui-g-2">
+            <p><em>Cost</em>: {{selectedItem.cost.quantity}}{{selectedItem.cost.unit}}</p>
+          </div>
+          <div class="ui-g-6">
+            <p *ngIf="selectedItem.weight">
+              <strong>Weight</strong>: {{selectedItem.weight}}
+            </p>
+            <p *ngIf="selectedItem.capacity">
+              <strong>Capacity</strong>: {{selectedItem.capacity}}
+            </p>
+          </div>
+          <div *ngIf="selectedItem.speed" class="ui-g-10">
+            <p><strong>Speed</strong>:{{selectedItem.speed.quantity}}{{selectedItem.speed.unit}}</p>
+          </div>
+          <div *ngIf="selectedItem.desc" class="ui-g-12">
+            <p> <strong>Description</strong>: {{selectedItem.desc}}</p>
+          </div>
+
+
+
+
+
+        </div>
       </div>
 
     </div>

@@ -65,14 +65,14 @@ export class HomeComponent implements OnInit {
 
   indexURL(url: string){
     var splitted = url.split("/", 6);
-    var result = Number(splitted[5]);
+    var result = Number(splitted[5]);//optional for more thorough comparision
     for(let item of this.data){
-      if(item.index === result){
+      if(item.index == splitted[5]){
         this.containedItem = item;
-        return this.containedItem.name;
+        return this.containedItem;
       }
     }
-    return "larry";
+    return null;
   }
 
   isTool(item: any) {
